@@ -351,7 +351,7 @@ variable "route_table_tags" {
 
 variable "sku" {
   type        = string
-  default     = "ErGw1AZ"
+  default     = "VpnGw1"
   description = "The SKU (size) of the Virtual Network Gateway."
   nullable    = false
 
