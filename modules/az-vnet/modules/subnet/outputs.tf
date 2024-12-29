@@ -18,11 +18,4 @@ output "resource_id" {
   value       = azapi_resource.subnet.id
 }
 
-output "subnet_ids" {
-  description = "A map of subnet names to their resource IDs."
-  value = {
-    subnet1 = azapi_resource.subnet1.id
-    subnet2 = azapi_resource.subnet2.id
-    subnet3 = azapi_resource.subnet3.id
-  }
-}
+

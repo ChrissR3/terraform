@@ -1,0 +1,38 @@
+Root module file containing templates for deploying resource group, virtual network, virtual machine and virtual network gateway
+
+Manully run with directory set to customer folder:
+git clone https://github.com/ChrissR3/terraform.git
+
+Update fields container_name and sas_token in backend for customer container in storage account
+update tfvars file with service principal details:
+client_id       = ""
+client_secret   = ""
+subscription_id = ""
+tenant_id       = ""
+
+Update Following Values:
+Backend:
+container_name       = "<Customer Container Name>"    Name of container created in TF Storage Account
+sas_token            = "<Insert Container SAS token Here>" SAS token generated on Container
+
+az-rg:
+az_rg_name     = "<RESOURCE GROUP NAME>" Name of Resource Group
+
+az-vnet
+name                = "<NAME OF VNET>" Name of the Virtual Network
+subnets > name    =  "<NAME OF SUBNET>" Name of the subnet, more subnets can be added by copying block and chaning values of mapping name and address space. eg.     
+"subnet3" = {
+      name             = "<NAME OF SUBNET>"
+      address_prefixes = ["10.100.2.0/24"]
+    }
+
+az-vm
+name = "<NAME IN AZURE>"   Name of resource in Azure 
+
+computer_name = "<HOST NAME>" Host name of VM (Can be removed if "name" is 15 characters or less, config will use "name" by default)
+
+network interfaces > name = "<NAME>-<NICXX>" Name of network interface for VM.
+
+ip configuration > name = "<NIC NAME>-ipconfig1" Name of IP Configuration, nicname+ipconfig1 (This config is for a single, private IP)
+
+private_ip_subnet_resource_id = module.az-vnet.subnets["<SUBNET>"].resource_id  change "<SUBNET>" to desired subnetX (map number not name) for VM to be placed on

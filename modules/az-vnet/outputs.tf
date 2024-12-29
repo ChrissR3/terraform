@@ -31,7 +31,4 @@ DESCRIPTION
   value       = module.subnet
 }
 
-output "subnet_ids" {
-  description = "A map of subnet names to their resource IDs from the subnet module."
-  value       = module.subnets.subnet_ids
-}
+
