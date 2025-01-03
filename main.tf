@@ -28,24 +28,24 @@ provider "azapi" {
 module az-rg {
   source = "./terraform/modules/az-rg" 
  
- az_rg_name     = "<RESOURCE GROUP NAME>"
- az_rg_location = "UK South"
+ az_rg_name     = var.full_rg_name
+ az_rg_location = var.rg_location
 
 }
 
 module az-vnet {
   source = "./terraform/modules/az-vnet"
 address_space       = ["10.100.0.0/16"]
-  location            = "UK South"
-  name                = "<NAME OF VNET>"
+  location            = var.rg_location
+  name                = var.full_vnet_name
   resource_group_name = module.az-rg.az-rg-name
   subnets = {
     "subnet1" = {
-      name             = "<NAME OF SUBNET>"
+      name             = var.full_snet1_name
       address_prefixes = ["10.100.0.0/24"]
     }
     "subnet2" = {
-      name             = "<NAME OF SUBNET>"
+      name             = var.full_snet2_name
       address_prefixes = ["10.100.1.0/24"]
     }
   }
@@ -55,15 +55,14 @@ address_space       = ["10.100.0.0/16"]
 module az-vm {
   source = "./terraform/modules/az-vm"
 location = "UK South"
-name = "<NAME IN AZURE>"
-computer_name = "<HOST NAME>"
+name = var.full_vm_name
 network_interfaces = {
   network_interface_1 = {
-    name = "<NAME>-<NICXX>"
+    name = var.vm_nic_name
     ip_configurations = {
       ip_configuration_1 = {
-        name                          = "<NIC NAME>-ipconfig1"
-        private_ip_subnet_resource_id = module.az-vnet.subnets["<SUBNET>"].resource_id
+        name                          = var.nic_ipconfig
+        private_ip_subnet_resource_id = module.az-vnet.subnets[var.vm_subnet].resource_id
       }
     }
   }

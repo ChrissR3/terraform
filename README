@@ -4,7 +4,7 @@ Manully run with directory set to customer folder:
 git clone https://github.com/ChrissR3/terraform.git
 
 Update fields container_name and sas_token in backend for customer container in storage account
-update tfvars file with service principal details:
+update tfvars file with service principal and resource details:
 client_id       = ""
 client_secret   = ""
 subscription_id = ""
@@ -16,12 +16,12 @@ container_name       = "<Customer Container Name>"    Name of container created 
 sas_token            = "<Insert Container SAS token Here>" SAS token generated on Container
 
 az-rg:
-az_rg_name     = "<RESOURCE GROUP NAME>" Name of Resource Group
+az_rg_name     = "<RESOURCE GROUP NAME>" Name of Resource Group without reg- prefix. this will be auto added throug the var.full_rg_name
 
 az-vnet
 name                = "<NAME OF VNET>" Name of the Virtual Network
 subnets > name    =  "<NAME OF SUBNET>" Name of the subnet, more subnets can be added by copying block and chaning values of mapping name and address space. eg.     
-"subnet3" = {
+subnet3 = {
       name             = "<NAME OF SUBNET>"
       address_prefixes = ["10.100.2.0/24"]
     }

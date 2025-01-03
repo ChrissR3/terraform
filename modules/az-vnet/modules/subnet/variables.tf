@@ -187,3 +187,4 @@ variable "subscription_id" {
   (Optional) The subscription ID to use for the feature registration.
 DESCRIPTION
 }
+
